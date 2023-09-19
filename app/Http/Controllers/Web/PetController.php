@@ -14,7 +14,7 @@ class PetController extends Controller
      */
     public function index()
     {
-        //
+        return view('pets.index');
     }
 
     /**
@@ -30,7 +30,8 @@ class PetController extends Controller
      */
     public function store(StorePetRequest $request)
     {
-        //
+        $request->user()->pets()->create($request->all());
+        return redirect()->route('pets.index');
     }
 
     /**

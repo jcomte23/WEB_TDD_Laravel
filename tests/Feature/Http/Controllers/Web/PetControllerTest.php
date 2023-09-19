@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers\Web;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PetControllerTest extends TestCase
 {
+    use RefreshDatabase;
+    use WithFaker;
 
     public function test_connecting_to_methods_without_login()
     {
@@ -19,4 +22,23 @@ class PetControllerTest extends TestCase
         $this->put('pets/1')->assertStatus(302)->assertRedirect('login');
         $this->delete('pets/1')->assertStatus(302)->assertRedirect('login');
     }
+
+    public function test_it_can_create_a_pet()
+    {
+        //campos del formulario
+        $data=[
+            "name"=>$this->faker->firstName
+        ];
+
+        //Usuario registrado que va a crear la mascota
+        $user=User::factory()->create();
+
+        //Creacion de la solicitud
+        $this->actingAs($user)->post('pets',$data)->assertRedirect('pets');
+
+        //Verificar en la base de datos que si se haya guardado los registros
+        $this->assertDatabaseHas('pets',$data);
+    }
+
+
 }
