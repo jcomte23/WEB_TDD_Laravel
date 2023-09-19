@@ -7,6 +7,7 @@ use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Models\Pet;
 
+
 class PetController extends Controller
 {
     /**
@@ -55,6 +56,7 @@ class PetController extends Controller
      */
     public function update(UpdatePetRequest $request, Pet $pet)
     {
+        $this->authorize('update',$pet);
         $pet->update($request->all());
         return redirect()->route('pets.edit',$pet);
     }
@@ -64,6 +66,7 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
+        $this->authorize('delete',$pet);
         $pet->delete();
         return redirect()->route('pets.index');
     }

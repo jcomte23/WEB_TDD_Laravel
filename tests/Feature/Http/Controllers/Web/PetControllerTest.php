@@ -57,6 +57,26 @@ class PetControllerTest extends TestCase
         $this->assertDatabaseHas('pets',$data);
     }
 
+    public function test_update_method_without_access_policy()
+    {
+        //Creacion de una mascota con un usuario A
+        $pet=Pet::factory()->create();
+
+        //Campos del formulario con nueva informacion
+        $data=[
+            "name"=>$this->faker->firstName
+        ];
+
+        //Usuario B que va intentar actualizar la mascota
+        $user=User::factory()->create();
+
+        //Solicitud Http
+        $this
+            ->actingAs($user)
+            ->put("pets/$pet->id",$data)
+            ->assertStatus(403);
+    }
+
     public function test_update_method_without_valid_fields()
     {
         //Creacion de una mascota para intentar actualizar sus datos
@@ -75,16 +95,15 @@ class PetControllerTest extends TestCase
 
     public function test_update_method_can_update_a_pet()
     {
+        //Usuario registrado que va a actualizar la mascota
+        $user=User::factory()->create();
         //Creacion de una mascota para poder actualizar sus datos
-        $pet=Pet::factory()->create();
+        $pet=Pet::factory()->create(['user_id'=>$user->id]);
 
         //Campos del formulario con nueva informacion
         $data=[
             "name"=>$this->faker->firstName
         ];
-
-        //Usuario registrado que va a actualizar la mascota
-        $user=User::factory()->create();
 
         //Solicitud Http
         $this
@@ -98,11 +117,10 @@ class PetControllerTest extends TestCase
 
     public function test_destroy_method_can_delete_a_pet()
     {
-        //Creacion de mascota
-        $pet=Pet::factory()->create();
-
-        //Usuario registrado que va a eliminar la mascota
+        //Usuario registrado que va a actualizar la mascota
         $user=User::factory()->create();
+        //Creacion de una mascota para poder actualizar sus datos
+        $pet=Pet::factory()->create(['user_id'=>$user->id]);
 
         //Solicitud Http
         $this
