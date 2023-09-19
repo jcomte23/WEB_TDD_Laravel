@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Web;
 
+use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -34,7 +35,33 @@ class PetControllerTest extends TestCase
         $user=User::factory()->create();
 
         //Creacion de la solicitud
-        $this->actingAs($user)->post('pets',$data)->assertRedirect('pets');
+        $this
+            ->actingAs($user)
+            ->post('pets',$data)
+            ->assertRedirect('pets');
+
+        //Verificar en la base de datos que si se haya guardado los registros
+        $this->assertDatabaseHas('pets',$data);
+    }
+
+    public function test_it_can_update_a_pet()
+    {
+        //creacion de una mascota para poder actualizar sus datos
+        $pet=Pet::factory()->create();
+
+        //campos del formulario con nueva informacion
+        $data=[
+            "name"=>$this->faker->firstName
+        ];
+
+        //Usuario registrado que va a actualizar la mascota
+        $user=User::factory()->create();
+
+        //Creacion de la solicitud
+        $this
+            ->actingAs($user)
+            ->put("pets/$pet->id",$data)
+            ->assertRedirect("pets/$pet->id/edit");
 
         //Verificar en la base de datos que si se haya guardado los registros
         $this->assertDatabaseHas('pets',$data);

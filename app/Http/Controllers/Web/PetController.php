@@ -47,7 +47,7 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        //
+        return view('pets.edit');
     }
 
     /**
@@ -55,7 +55,8 @@ class PetController extends Controller
      */
     public function update(UpdatePetRequest $request, Pet $pet)
     {
-        //
+        $pet->update($request->all());
+        return redirect()->route('pets.edit',$pet);
     }
 
     /**
