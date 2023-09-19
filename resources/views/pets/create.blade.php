@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>listado de pets</h1>
+    vista de creacion
 </body>
 </html>

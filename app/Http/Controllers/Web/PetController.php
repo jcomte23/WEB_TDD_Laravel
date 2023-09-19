@@ -22,7 +22,7 @@ class PetController extends Controller
      */
     public function create()
     {
-        //
+        return view('pets.create');
     }
 
     /**
@@ -64,6 +64,7 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
-        //
+        $pet->delete();
+        return redirect()->route('pets.index');
     }
 }
