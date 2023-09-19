@@ -18,10 +18,10 @@ class Pet extends Model
     // protected $table = 'name';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    protected $guarded = [];
-    // protected $fillable = [
-    //     'message',
-    // ];
+    // protected $guarded = [];
+    protected $fillable = [
+        'name',
+    ];
     // protected $hidden = [
     // ];
     // protected $dates = [];
