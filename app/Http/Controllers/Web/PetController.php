@@ -15,7 +15,8 @@ class PetController extends Controller
      */
     public function index()
     {
-        return view('pets.index');
+        $pets=auth()->user()->pets;
+        return view('pets.index',compact('pets'));
     }
 
     /**
@@ -40,7 +41,8 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
-        //
+        $this->authorize('view',$pet);
+        return view('pets.show',compact('pet'));
     }
 
     /**

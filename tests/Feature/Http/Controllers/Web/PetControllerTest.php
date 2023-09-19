@@ -24,6 +24,43 @@ class PetControllerTest extends TestCase
         $this->delete('pets/1')->assertStatus(302)->assertRedirect('login');
     }
 
+    public function test_index_method_without_my_pets()
+    {
+        Pet::factory()->create();
+
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get('pets')
+            ->assertStatus(200)
+            ->assertSee('No tienes mascotas registradas');
+    }
+
+    public function test_index_method_with_my_pets()
+    {
+        $user = User::factory()->create();
+        $pet=Pet::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user)
+            ->get('pets')
+            ->assertStatus(200)
+            ->assertSee($pet->id)
+            ->assertSee($pet->name);
+    }
+
+    public function test_show_method_can_show_a_pet()
+    {
+        $user = User::factory()->create();
+        $pet=Pet::factory()->create(['user_id' => $user->id]);
+        
+        $this->actingAs($user)
+            ->get("pets/$pet->id")
+            ->assertStatus(200)
+            ->assertSee($pet->id)
+            ->assertSee($pet->name);
+
+    }
+
     public function test_store_method_without_valid_fields()
     {
         //Usuario registrado que va a intentar crear la mascota
