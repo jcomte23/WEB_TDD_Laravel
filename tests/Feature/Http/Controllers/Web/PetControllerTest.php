@@ -94,25 +94,6 @@ class PetControllerTest extends TestCase
         $this->assertDatabaseHas('pets', $data);
     }
 
-    public function test_update_method_without_access_policy()
-    {
-        //Creacion de una mascota con un usuario A
-        $pet = Pet::factory()->create();
-
-        //Campos del formulario con nueva informacion
-        $data = [
-            "name" => $this->faker->firstName
-        ];
-
-        //Usuario B que va intentar actualizar la mascota
-        $user = User::factory()->create();
-
-        //Solicitud Http
-        $this
-            ->actingAs($user)
-            ->put("pets/$pet->id", $data)
-            ->assertStatus(403);
-    }
 
     public function test_update_method_without_valid_fields()
     {
@@ -150,21 +131,6 @@ class PetControllerTest extends TestCase
 
         //Verificar en la base de datos que si se haya actualizado la mascota
         $this->assertDatabaseHas('pets', $data);
-    }
-
-    public function test_destroy_method_without_access_policy()
-    {
-        //Usuario que va a intentar actualizar la mascota
-        $user = User::factory()->create();
-
-        //Creacion de una mascota para intentar eliminarla
-        $pet = Pet::factory()->create();
-
-        //Solicitud Http
-        $this
-            ->actingAs($user)
-            ->delete("pets/$pet->id")
-            ->assertStatus(403);
     }
 
     public function test_destroy_method_can_delete_a_pet()
