@@ -13,7 +13,7 @@ class PetPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_update_a_pet_without_access_policy()
+    public function test_impossible_update_a_pet_without_access_policy()
     {
         //Creacion de una mascota la cual trae su propio usuario
         $pet = Pet::factory()->create();
@@ -33,7 +33,7 @@ class PetPolicyTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function test_delete_a_pet_without_access_policy()
+    public function test_impossible_delete_a_pet_without_access_policy()
     {
         //Usuario que va a intentar eliminar la mascota
         $user = User::factory()->create();

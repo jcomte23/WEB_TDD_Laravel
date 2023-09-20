@@ -13,7 +13,7 @@ class PetRequestTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_create_a_pet_with_invalid_fields()
+    public function test_impossible_create_a_pet_with_invalid_fields()
     {
         //Usuario registrado que va a intentar crear la mascota
         $user = User::factory()->create();
@@ -26,7 +26,7 @@ class PetRequestTest extends TestCase
             ->assertSessionHasErrors(['name']);
     }
 
-    public function test_update_a_pet_with_invalid_fields()
+    public function test_impossible_update_a_pet_with_invalid_fields()
     {
         //Creacion de una mascota para intentar actualizar sus datos
         $pet = Pet::factory()->create();
