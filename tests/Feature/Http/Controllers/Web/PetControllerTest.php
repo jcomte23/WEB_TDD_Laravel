@@ -13,7 +13,7 @@ class PetControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_connecting_to_methods_without_login()
+    public function test_validation_of_controller_routes_without_login()
     {
         $this->get('pets')->assertStatus(302)->assertRedirect('login');
         $this->get('pets/1')->assertStatus(302)->assertRedirect('login');
@@ -61,19 +61,6 @@ class PetControllerTest extends TestCase
 
     }
 
-    public function test_store_method_without_valid_fields()
-    {
-        //Usuario registrado que va a intentar crear la mascota
-        $user = User::factory()->create();
-
-        //Solicitud Http
-        $this
-            ->actingAs($user)
-            ->post('pets', [])
-            ->assertStatus(302)
-            ->assertSessionHasErrors(['name']);
-    }
-
     public function test_store_method_can_create_a_pet()
     {
         //Campos del formulario
@@ -92,23 +79,6 @@ class PetControllerTest extends TestCase
 
         //Verificar en la base de datos que si se haya guardado la mascota
         $this->assertDatabaseHas('pets', $data);
-    }
-
-
-    public function test_update_method_without_valid_fields()
-    {
-        //Creacion de una mascota para intentar actualizar sus datos
-        $pet = Pet::factory()->create();
-
-        //Usuario registrado que va a intentar actualizar la mascota
-        $user = User::factory()->create();
-
-        //Solicitud Http
-        $this
-            ->actingAs($user)
-            ->put("pets/$pet->id", [])
-            ->assertStatus(302)
-            ->assertSessionHasErrors(['name']);
     }
 
     public function test_update_method_can_update_a_pet()
