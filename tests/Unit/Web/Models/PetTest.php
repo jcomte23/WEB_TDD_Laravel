@@ -11,7 +11,7 @@ class PetTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_pet_belong_to_user()
+    public function test_pet_belongs_to_user()
     {
         $pet=Pet::factory()->create();
         $this->assertInstanceOf(User::class,$pet->user);
