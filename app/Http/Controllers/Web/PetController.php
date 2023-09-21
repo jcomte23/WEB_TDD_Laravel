@@ -15,7 +15,7 @@ class PetController extends Controller
      */
     public function index()
     {
-        $pets=Pet::where('user_id','=',Auth::id())->orderBy('updated_at', 'desc')->paginate(5);
+        $pets=Pet::ListMyPets()->paginate(5);
         return view('pets.index', compact('pets'));
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Pet extends Model
 {
@@ -48,6 +50,11 @@ class Pet extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+
+    public function scopeListMyPets(Builder $query)
+    {
+        $query->where('user_id','=',Auth::id())->orderBy('updated_at', 'desc');
+    }
 
     /*
     |--------------------------------------------------------------------------
