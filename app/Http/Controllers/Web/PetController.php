@@ -15,7 +15,7 @@ class PetController extends Controller
      */
     public function index()
     {
-        $pets=Pet::ListMyPets()->paginate(5);
+        $pets=Pet::ListMyPets()->paginate(15);
         return view('pets.index', compact('pets'));
     }
 

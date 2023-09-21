@@ -2,7 +2,8 @@
     <section class="container py-4 mx-auto">
         <div class="flex items-center gap-x-3">
             <h2 class="text-lg font-medium text-gray-800 dark:text-white">Listado de mascotas</h2>
-            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{$pets->total() }}
+            <span
+                class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ $pets->total() }}
                 mascotas</span>
         </div>
 
@@ -34,8 +35,8 @@
                                         <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                             <div class="inline-flex items-center gap-x-3">
                                                 <div class="flex items-center gap-x-2">
-                                                    <img class="object-cover w-10 h-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                                    <img class="object-cover w-16 h-16 rounded-full ring ring-gray-300 dark:ring-gray-600"
+                                                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100"
                                                         alt="">
                                                     <div>
                                                         <h2 class="font-medium text-gray-800 dark:text-white ">
@@ -70,7 +71,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="text-center px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                        <td colspan="2"
+                                            class="text-center px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                             No tienes mascotas registradas
                                         </td>
                                     </tr>
@@ -82,7 +84,11 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between mt-6">
+        <div class="mt-6">
+            {{ $pets->links() }}
+        </div>
+
+        {{-- <div class="flex items-center justify-between mt-6">
             <a href="#"
                 class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -112,7 +118,7 @@
                     class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">14</a>
             </div>
 
-            <a href="#"
+            <a href=""
                 class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
                 <span>
                     Next
@@ -123,14 +129,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
             </a>
-        </div>
-    </section>
+        </div> --}}
 
-    {{-- <h1>listado de pets</h1>
-                @forelse ($pets as $pet)
-                    <h1>{{ $pet->id }}</h1>
-                    <h2>{{ $pet->name }}</h2>
-                @empty
-                    <h1>No tienes mascotas registradas</h1>
-                @endforelse --}}
+    </section>
 </x-app-layout>
