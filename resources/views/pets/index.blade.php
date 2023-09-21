@@ -2,7 +2,7 @@
     <section class="container py-4 mx-auto">
         <div class="flex items-center gap-x-3">
             <h2 class="text-lg font-medium text-gray-800 dark:text-white">Listado de mascotas</h2>
-            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">50
+            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{$pets->total() }}
                 mascotas</span>
         </div>
 
@@ -70,7 +70,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="1" class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                        <td colspan="2" class="text-center px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                             No tienes mascotas registradas
                                         </td>
                                     </tr>

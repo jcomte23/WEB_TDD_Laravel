@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Models\Pet;
-
+use Illuminate\Support\Facades\Auth;
 
 class PetController extends Controller
 {
@@ -15,8 +15,8 @@ class PetController extends Controller
      */
     public function index()
     {
-        $pets=auth()->user()->pets;
-        return view('pets.index',compact('pets'));
+        $pets=Pet::where('user_id','=',Auth::id())->orderBy('updated_at', 'desc')->paginate(5);
+        return view('pets.index', compact('pets'));
     }
 
     /**
